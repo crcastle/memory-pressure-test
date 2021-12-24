@@ -14,7 +14,7 @@ while [ $no_node -lt 2 ]; do
     sleep 1;
 
     # increment no_node if no node process is running
-    pgrep node
+    pgrep node > /dev/null
     retVal=$?
     if [ $retVal -ne 0 ]; then
         ((no_node++))
