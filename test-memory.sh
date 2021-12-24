@@ -9,6 +9,7 @@ done &
 
 no_node=0
 while [ $no_node -lt 2 ]; do
+    echo "Processes currently running"
     ps --no-headers --format "etime pid %cpu %mem rss cmd";
     sleep 1;
 
