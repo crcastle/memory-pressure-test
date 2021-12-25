@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
 
-# Start a simple HTTP server to run this repo as a private service
-RESPONSE="HTTP/1.1 200 OK\r\nConnection: keep-alive\r\n\r\nOK}\r\n"
-while { echo -en "$RESPONSE"; } | nc -l 10000; do
-    # bash no-op
-    :
+# Start a simple HTTP server to run this as a web service
+while true; do
+    printf 'HTTP/1.1 200 OK\r\n' | nc -l ${PORT} > /dev/null;
 done &
 
 no_node=0
 while [ $no_node -lt 2 ]; do
-    echo "Processes currently running"
+    echo "Processes currently running:"
     ps --no-headers --format "etime pid %cpu %mem rss cmd";
     sleep 1;
 
