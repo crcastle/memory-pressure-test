@@ -13,7 +13,7 @@ fi
 
 # Start a simple HTTP server so Render sees a process listening on a port
 while true; do
-    printf 'HTTP/1.1 200 OK\r\n' | $nc_command -l 10000 > /dev/null;
+    printf 'HTTP/1.0 200 OK\nContent-Length: 2\n\nOK' | $nc_command -l -p 10000 > /dev/null;
 done &
 
 # Print info about all processes until the node process dies
