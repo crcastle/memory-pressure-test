@@ -19,7 +19,7 @@ done &
 # Print info about all processes until the node process dies
 no_node=0
 while [ $no_node -lt 2 ]; do
-    echo -e 'PID\tPPID\tRSS\tShared\tPrivate\tOOM Score\tCMD'
+    echo -e 'PID\tPPID\tRSS\tShared\tPrivate\tCMD'
     total=0
     total_p=0
     total_s=0
@@ -29,8 +29,7 @@ while [ $no_node -lt 2 ]; do
             pss=$(awk 'BEGIN {i=0} /^Pss/ {i = i + $2} END {print i}' /proc/$pid/smaps)
             shared=$(awk 'BEGIN {i=0} /^Shared_/ {i = i + $2} END {print i}' /proc/$pid/smaps)
             private=$(awk 'BEGIN {i=0} /^Private_/ {i = i + $2} END {print i}' /proc/$pid/smaps)
-            oom_score_adj=$(cat /proc/$pid/oom_score_adj)
-            printf '%d\t%d\t%d\t%d\t%d\t%d\t%s\n' "$pid" "$ppid" "$rss" "$shared" "$private" "$oom_score_adj" "$args"
+            printf '%d\t%d\t%d\t%d\t%d\t%s\n' "$pid" "$ppid" "$rss" "$shared" "$private" "$args"
         fi
     done < <(ps -o pid,ppid,args)
     sleep 1;
