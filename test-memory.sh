@@ -4,7 +4,7 @@
 nc_command=$(which nc)
 retVal=$?
 if [ $retVal -ne 0 ]; then
-    curl https://cfhcable.dl.sourceforge.net/project/nc110/community%20releases/nc110.20180111.tar.xz | tar xJ
+    curl -s https://cfhcable.dl.sourceforge.net/project/nc110/community%20releases/nc110.20180111.tar.xz | tar xJ
     cd nc110
     make generic
     nc_command=$(pwd)/nc
