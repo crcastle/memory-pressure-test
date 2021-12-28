@@ -1,20 +1,9 @@
 #!/usr/bin/env bash
 
-# Check for nc command. Get it if not found.
-nc_command=$(which nc)
-retVal=$?
-if [ $retVal -ne 0 ]; then
-    curl -s https://cfhcable.dl.sourceforge.net/project/nc110/community%20releases/nc110.20180111.tar.xz | tar xJ
-    cd nc110
-    make generic
-    nc_command=$(pwd)/nc
-    cd ..
-fi
-
 # Start a simple HTTP server so Render sees a process listening on a port
-while true; do
-    printf 'HTTP/1.0 200 OK\nContent-Length: 2\n\nOK' | $nc_command -l -p 10000 > /dev/null;
-done &
+source "background-web-server.sh"
+PORT=${PORT:-10000}
+background-web-server $PORT
 
 # Print info about all processes until the node process dies
 no_node=0
